@@ -31,6 +31,9 @@
                 <li>
                     <a href="admin">Admin</a>
                 </li>
+                <li class="left">
+                    <a href="registration.php">Register</a>
+                </li>
                 <?php
 
                 if (isset($_SESSION['user_role'])) {
