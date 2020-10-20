@@ -10,6 +10,15 @@ if (isset($_POST['create_user'])) {
     //$user_image_temp = $_FILES['image']['tmp_name'];    
     $user_role = $_POST['user_role'];
 
+    $query = "SELECT randSalt FROM users";
+    $select_randsalt_query = mysqli_query($connection, $query);
+    if (!$select_randsalt_query) {
+        die("QUERY FAILED " . mysqli_error($connection));
+    }
+
+    $row = mysqli_fetch_array($select_randsalt_query);
+    $salt = $row['randSalt'];
+    $user_password = crypt($user_password, $salt);
 
     $query = "INSERT INTO users(username, user_password, user_firstname, user_lastname, user_email,  user_role) ";
 
@@ -58,14 +67,9 @@ if (isset($_POST['create_user'])) {
     <div class="form-group">
         <label for="user_role">User Role</label>
         <select name="user_role" id="">
-            <option value=''><?php echo $user_role; ?></option>
-            <?php
-            if ($user_role == 'admin') {
-                echo "<option value='subscriber'>subscriber</option>";
-            } else {
-                echo "<option value='admin'>admin</option>";
-            }
-            ?>
+            <option value='subscriber'>Select Role</option>
+            <option value='admin'>admin</option>
+            <option value='subscriber'>Subscriber</option>
         </select>
     </div>
 
