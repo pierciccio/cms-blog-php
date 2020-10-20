@@ -26,20 +26,20 @@ if (isset($_POST['checkBoxArray'])) {
 ?>
 <form action="" method="post">
 
-    <div id="bulkOptionContainer" class="col-xs-4">
-        <select class="form-control" name="bulk_options" id="">
-            <option value="">Select Options</option>
-            <option value="published">Publish</option>
-            <option value="draft">Draft</option>
-            <option value="delete">Delete</option>
-        </select>
-    </div>
-    <div class="col-xs-4">
-        <input type="submit" name="submit" class="btn btn-success" value="Apply" id="">
-        <a href="posts.php?source=add_post" class="btn btn-primary">Add New</a>
-    </div>
-
     <table class="table table-bordered table-hover">
+        
+        <div id="bulkOptionContainer" class="col-xs-4">
+            <select class="form-control" name="bulk_options" id="">
+                <option value="">Select Options</option>
+                <option value="published">Publish</option>
+                <option value="draft">Draft</option>
+                <option value="delete">Delete</option>
+            </select>
+        </div>
+        <div class="col-xs-4">
+            <input type="submit" name="submit" class="btn btn-success" value="Apply" id="">
+            <a href="posts.php?source=add_post" class="btn btn-primary">Add New</a>
+        </div>
 
         <thead>
             <tr>
@@ -94,7 +94,7 @@ if (isset($_POST['checkBoxArray'])) {
                 echo "<td>$post_date</td>";
                 echo "<td><a href='../post.php?p_id={$post_id}'>View</a></td>";
                 echo "<td><a href='posts.php?source=edit_post&p_id={$post_id}'>Edit</a></td>";
-                echo "<td><a href='posts.php?delete={$post_id}'>Delete</a></td>";
+                echo "<td><a onClick=\"javascript: return confirm('Are you Sure?'); \" href='posts.php?delete={$post_id}'>Delete</a></td>";
                 echo "</tr>";
             }
             ?>
