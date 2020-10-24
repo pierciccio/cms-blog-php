@@ -20,6 +20,22 @@ if (isset($_POST['checkBoxArray'])) {
                 $update_to_delete_status = mysqli_query($connection, $query);
                 confirmQuery($update_to_delete_status);
                 break;
+            case 'clone':
+                $query = "INSERT INTO posts(post_category_id, post_title, post_author, post_date, post_image, post_content, post_tags, post_status) ";
+                $query .= "VALUES({$post_category_id},'{$post_title}','{$post_author}',now(),'{$post_image}','{$post_content}','{$post_tags}', '{$post_status}') ";
+
+                $select_posts = mysqli_query($connection, $query);
+                while ($row = mysqli_fetch_assoc($select_posts)) {
+                    $post_id = $row['post_id'];
+                    $post_author = $row['post_author'];
+                    $post_title = $row['post_title'];
+                    $post_category_id = $row['post_category_id'];
+                    $post_status = $row['post_status'];
+                    $post_image = $row['post_image'];
+                    $post_content = $row['post_content'];
+                }
+                confirmQuery($select_posts);
+                break;
         }
     }
 }
@@ -27,13 +43,14 @@ if (isset($_POST['checkBoxArray'])) {
 <form action="" method="post">
 
     <table class="table table-bordered table-hover">
-        
+
         <div id="bulkOptionContainer" class="col-xs-4">
             <select class="form-control" name="bulk_options" id="">
                 <option value="">Select Options</option>
                 <option value="published">Publish</option>
                 <option value="draft">Draft</option>
                 <option value="delete">Delete</option>
+                <option value="clone">Clone</option>
             </select>
         </div>
         <div class="col-xs-4">
